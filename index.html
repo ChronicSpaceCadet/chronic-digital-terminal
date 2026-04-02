@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #000; color: #0F0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        #terminal { padding: 20px; height: 90vh; overflow-y: auto; border: 1px solid #0F0; margin: 10px; box-shadow: 0 0 15px #0F0; }
+        .user-input { color: #fff; text-shadow: 0 0 5px #0F0; }
+        input { background: transparent; border: none; color: #0F0; font-family: inherit; font-size: 1em; outline: none; width: 70%; }
+        .system-msg { color: #888; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div id="output">
+            <p class="system-msg">[ SYSTEM_INITIALIZED // CHRONIC_SPACE_DIGITAL ]</p>
+            <p>Welcome, User. Type 'HELP' for a list of available commands.</p>
+        </div>
+        <div id="input-line">
+            <span>> </span><input type="text" id="cmd" autofocus>
+        </div>
+    </div>
+
+    <script>
+        const cmdInput = document.getElementById('cmd');
+        const output = document.getElementById('output');
+
+        cmdInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const val = cmdInput.value.toLowerCase().trim();
+                let res = "";
+
+                if (val === 'help') res = "AVAILABLE_COMMANDS: [ART] [BOTS] [WEB] [ANIMATION] [CLEAR]";
+                else if (val === 'art') res = "LOADING_VISUAL_ASSETS... WILDSTYLE_GRAFFITI_V1.0_DETECTED.";
+                else if (val === 'bots') res = "ACCESS_GRANTED. REPOSITORIES: CHRONIC_TERMINAL, AUTO_MOD_V3.";
+                else if (val === 'web') res = "SCANNING_SITES... SHOPIFY_INTEGRATION_OK, GOOGLE_SITES_OK.";
+                else if (val === 'animation') res = "RENDER_ENGINE_READY. 60FPS_MOTION_GRAPHICS_ACTIVE.";
+                else if (val === 'clear') { output.innerHTML = ""; cmdInput.value = ""; return; }
+                else res = "ERROR: COMMAND_NOT_FOUND. TYPE 'HELP' FOR ASSISTANCE.";
+
+                output.innerHTML += `<p><span class="user-input">> ${val}</span><br>${res}</p>`;
+                cmdInput.value = "";
+                document.getElementById('terminal').scrollTop = document.getElementById('terminal').scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
